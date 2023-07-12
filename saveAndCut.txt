@@ -1,0 +1,128 @@
+  $message = $header.
+
+                "\n". "ชื่อ: " . $firstname .
+                "\n". "นามสกุล: " . $lastname .
+                "\n". "รหัส: " . $id .
+                "\n". "ข้อความใน text : " .$user_input ;
+                
+    
+                if (isset($_POST["submit"])) {
+
+        if ( $firstname <> "" ||  $lastname <> "" ||  $phone <> "" ||  $email <> "" ||  $user_input <> ""  ) {
+
+            sendlinemesg();
+            header('Content-Type: text/html; charset=utf8');
+            $res = notify_message($message);
+            echo "<script>alert('เช็คชื่อแล้ว');</script>";
+            header("location: index.php");
+            
+        } else {
+            echo "<script>alert('ยังไม่ได้เช็คชื่อ');</script>";
+            header("location: index.php");
+        }
+    }
+
+
+
+
+
+
+
+//  <input type="checkbox" id="vehicle1" name="vehicle1" value="First"  placeholder= 'ใส่สิ่งที่ต้องการ'       >
+                 <label for="vehicle1"> เช็ค </label><br>
+                 <input type="checkbox" id="vehicle2" name="vehicle2" value="Big">
+                 <label for="vehicle2"> test block II</label><br>  
+
+
+
+index v1
+***
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+     
+    <script>
+    function enableText() {
+      var checkbox = document.getElementById("my_checkbox");
+      var inputText = document.getElementById("user_input");
+      inputText.disabled = !checkbox.checked;
+    }
+  </script>
+
+
+    </style>
+
+    <script>
+        function showPopup() {
+            // แสดง popup
+            document.getElementById('popup').style.display = 'block';
+        }
+
+        function closePopup() {
+            // ปิด popup
+            document.getElementById('popup').style.display = 'none';
+            // ซ่อนฟอร์ม
+            document.getElementById('myForm').style.display = 'none';
+        }
+    </script>
+    
+
+    <style>
+        input {
+            border:1px solid #ccc;
+            width:200px;
+            padding:10px;
+            margin:5px 15px;
+            border-radius:5px;
+        }
+        .send {
+            width:220px;
+        }
+
+        .content {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 10px;
+        }
+    </style>
+
+
+<h1 class="content">Line Notify Test v1</h1>
+</head>
+<body>
+    <div class="content">
+    <?php include "navbar.php"; ?>
+
+
+
+        <form id="myForm" action="line-notify.php" method="post">
+            <input name="firstname" placeholder='ชื่อ (required)' type='text'>
+            <br>
+            <input name="lastname" placeholder='นามสกุล (required)' type='text'>
+            <br>
+            <input placeholder='รหัสนักเรียน (required)' name="id" type='text'>
+
+            <br>
+
+                 <input type="checkbox" id="my_checkbox" onclick="enableText()"> อื่นๆ <br>
+                 <input type="text" id="user_input" name="user_input" placeholder="กรอกข้อความ" disabled><br> 
+
+
+            <input class='send' name="submit" type='submit' value='ส่ง'>
+        </form>
+
+        <div id="popup" class="popup">
+                <h3>ส่งข้อมูลแล้ว</h3>
+                <button onclick="closePopup()">ลงทะเบียนอีกครั้ง</button>
+            </div>
+
+
+    </div>
+</body>
+</html>
+***
