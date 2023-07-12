@@ -1,6 +1,6 @@
 <!-- VI5VoYtGOly1LDNIeMvSzpCtnAIeGJBhE4skSsNrght -->
 <?php 
-
+    include "conn.php";
 
     $header = "Testing Line Notify";
     $firstname = $_POST['firstname'];

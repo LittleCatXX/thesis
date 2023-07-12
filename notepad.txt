@@ -13,6 +13,10 @@
 *system requirment
 to fix index
 to link page
+
+
+
+
 ------------------------
 12/7/2023
 try to checkbox 50 % 
