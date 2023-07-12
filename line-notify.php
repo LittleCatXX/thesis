@@ -12,21 +12,24 @@ $lastname = $_POST['lastname'];
 $id = $_POST['id'];
 $user_input = $_POST['user_input'];
 
-if (isset($_GET['barcode'])) {
-    $barcode = $_GET['barcode'];
-} else {
-    $barcode = "";
-}
+if(isset($_POST['qr_data'])) {
+    $qr_data = $_POST['qr_data'];
+    
+    // ทำสิ่งที่คุณต้องการกับข้อมูลที่ได้รับจาก QR scanner
+    // เช่น เก็บลงฐานข้อมูลหรือประมวลผลต่อไป
+    
+    echo "QR Data: " . $qr_data;
+  }
 
 $message = $header.
             "\n". "ชื่อ: " . $firstname .
             "\n". "นามสกุล: " . $lastname .
             "\n". "รหัส: " . $id .
-            "\n". "**barcode test block** : " . $barcode .
+            "\n". "**barcode test block** : " . $qr_data .
             "\n". "ข้อความใน text : " . $user_input;
 
             if (isset($_POST["submit"])) {
-                if ($firstname !== "" || $lastname !== "" || $id !== "" || $user_input !== "") {
+                if ($firstname !== "" || $lastname !== "" || $id !== "" || $user_input !== ""|| $qr_data !== "") {
                     // เรียกใช้งานฟังก์ชันส่งข้อความผ่าน Line Notify แล้วเก็บข้อมูลต่างๆไว้ในระบบ ใน  table line_notify_data
                     sendlinemesg();
                     header('Content-Type: text/html; charset=utf8');

@@ -82,13 +82,15 @@
             <input name="lastname" placeholder='นามสกุล (required)' type='text'>
             <br>
             <input placeholder='รหัสนักเรียน (required)' name="id" type='text'>
-
+            <br>
+            <input type="text" name="qr_data" placeholder="QR data..." />
             <br>
 
             <input type="checkbox" id="my_checkbox" onclick="enableText()"> อื่นๆ <br>
             <input type="text" id="user_input" name="user_input" placeholder="กรอกข้อความ" disabled><br> 
 
             <input class='send' name="submit" type='submit' value='ส่ง' onclick="showPopup()">
+            
         </form>
 
         <div id="popup" class="popup">
