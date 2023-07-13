@@ -3,16 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <h1>Check Name Test</h1>
+    <style>
+        input {
+            border:1px solid #ccc;
+            width:200px;
+            padding:10px;
+            margin:5px 15px;
+            border-radius:5px;
+        }
+        .send {
+            width:220px;
+        }
+
+        .content {
+            max-width: 500px;
+            margin: auto;
+            background: white;
+            padding: 10px;
+        }
+    </style>
+<h1 class="content">Line Notify Test v1</h1>
 </head>
 <body>
-    <form action="line-notify2.php" method="post">
-        <input type="checkbox" id="vehicle1" name="vehicle1" value="First">
-        <label for="vehicle1"> First</label><br>
-        <input type="checkbox" id="vehicle2" name="vehicle2" value="Big">
-        <label for="vehicle2"> Big</label><br>
-        <input type="submit" value="Submit">
-    </form>
+    <div class="content">
+        <form action="line-notify.php" method="post">
+            <input name="firstname" placeholder='ชื่อ (required)' type='text'>
+            <br>
+            <input name="lastname" placeholder='นามสกุล (required)' type='text'>
+            <br>
+            <input placeholder='รหัสนักเรียน (required)' name="id" type='text'>
+            <br>
+            <input class='send' name="submit" type='submit' value='ส่ง'>
+        </form>
+    </div>
 </body>
 </html>
+
+#test change path local in pc
+#test II  change from main  ? 
+#test III test Commit

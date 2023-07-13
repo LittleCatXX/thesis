@@ -1,48 +1,46 @@
-<!-- VI5VoYtGOly1LDNIeMvSzpCtnAIeGJBhE4skSsNrght -->
 <?php 
 
 
     $header = "Testing Line Notify";
-    $vehicle1 = $_POST['vehicle1'];
-    $vehicle2 = $_POST['vehicle2'];
-    
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $id = $_POST['id'];
+
     $message = $header.
-                "\n". $vehicle1 .
-                "\n". $vehicle2;
+                "\n". "ชื่อ: " . $firstname .
+                "\n". "นามสกุล: " . $lastname .
+                "\n". "รหัส: " . $id;
 
     if (isset($_POST["submit"])) {
-        if ( $vehicle1 <> "" ||  $vehicle2 <> ""  ) {
+        if ( $firstname <> "" ||  $lastname <> "" ||  $phone <> "" ||  $email <> "" ) {
             sendlinemesg();
             header('Content-Type: text/html; charset=utf8');
             $res = notify_message($message);
             echo "<script>alert('เช็คชื่อแล้ว');</script>";
-            header("location: index2.php");
+            header("location: index.php");
         } else {
             echo "<script>alert('ยังไม่ได้เช็คชื่อ');</script>";
-            header("location: index2.php");
+            header("location: index.php");
         }
     }
+        function sendlinemesg() {
+            $channelAccessToken = "+juKyX1yFgY+1TkQaWUUyMwb3cC4sTC6Wk+zDATAyFRocU48+NGh/tZlZUE5F4cYSehA0oer88nexDJuomtLu32VFrh6QXPR1uN8kZbLw88L93rMCw8Dqx9X2sBL0GVb9jcm8e+3tjHCOMaH52/59gdB04t89/1O/w1cDnyilFU=";
+            $channelSecret = "c02ad4f659aabc2867cf6a5154ce3f78";
 
-    function sendlinemesg() {
-        define('LINE_API',"https://notify-api.line.me/api/notify");
-        define('LINE_TOKEN',"VI5VoYtGOly1LDNIeMvSzpCtnAIeGJBhE4skSsNrght");
+            $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient($channelAccessToken);
+            $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => $channelSecret]);
 
-        function notify_message($message) {
-            $queryData = array('message' => $message);
-            $queryData = http_build_query($queryData,'','&');
-            $headerOptions = array(
-                'http' => array(
-                    'method' => 'POST',
-                    'header' => "Content-Type: application/x-www-form-urlencoded\r\n"
-                                ."Authorization: Bearer ".LINE_TOKEN."\r\n"
-                                ."Content-Length: ".strlen($queryData)."\r\n",
-                    'content' => $queryData
-                )
-            );
-            $context = stream_context_create($headerOptions);
-            $result = file_get_contents(LINE_API, FALSE, $context);
-            $res = json_decode($result);
-            return $res;
+            $signature = $_SERVER['HTTP_X_LINE_SIGNATURE'];
+            $body = file_get_contents('php://input');
+
+            try {
+            $events = $bot->parseEventRequest($body, $signature);
+            foreach ($events as $event) {
+                // ประมวลผลเหตุการณ์ต่าง ๆ จาก Line Chatbot ที่นี่
+                // เช่น ส่งข้อความกลับไปยังผู้ใช้
+                }
+            } catch (Exception $e) {
+                // จัดการข้อผิดพลาดที่เกิดขึ้น
         }
     }
 
