@@ -3,25 +3,23 @@
 
 
     $header = "Testing Line Notify";
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $id = $_POST['id'];
-
+    $vehicle1 = $_POST['vehicle1'];
+    $vehicle2 = $_POST['vehicle2'];
+    
     $message = $header.
-                "\n". "ชื่อ: " . $firstname .
-                "\n". "นามสกุล: " . $lastname .
-                "\n". "รหัส: " . $id;
+                "\n". $vehicle1 .
+                "\n". $vehicle2;
 
     if (isset($_POST["submit"])) {
-        if ( $firstname <> "" ||  $lastname <> "" ||  $phone <> "" ||  $email <> "" ) {
+        if ( $vehicle1 <> "" ||  $vehicle2 <> ""  ) {
             sendlinemesg();
             header('Content-Type: text/html; charset=utf8');
             $res = notify_message($message);
             echo "<script>alert('เช็คชื่อแล้ว');</script>";
-            header("location: index.php");
+            header("location: index2.php");
         } else {
             echo "<script>alert('ยังไม่ได้เช็คชื่อ');</script>";
-            header("location: index.php");
+            header("location: index2.php");
         }
     }
 
