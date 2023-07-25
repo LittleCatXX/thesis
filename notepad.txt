@@ -1,0 +1,24 @@
+#test change path local in pc   nice    
+#test II  change from main  ?   nice
+#test III test Commit           nice
+#test IV  link with xammp      
+
+
+
+
+
+
+
+
+*system requirment
+to fix index
+to link page
+
+
+
+
+------------------------
+12/7/2023
+try to checkbox 50 % 
+add scanner barcode เมื่อ scannbar code จะแสดง  barcode ออกมา *รอทดสอบ*
+-------------------------
