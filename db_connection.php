@@ -1,5 +1,7 @@
 <?php
+
 function createDBConnection() {
+    // ข้อมูลสำหรับการเชื่อมต่อฐานข้อมูล
     $servername = "localhost";
     $username = "root";
     $password = "";
@@ -15,4 +17,3 @@ function createDBConnection() {
 
     return $conn;
 }
-?>
