@@ -1,0 +1,5 @@
+<?php 
+
+$access_token = "3CuFe7QESNHNa0r74OzbeTyUjNcE7iBV68RwZP6H8UwPUfJCPBkh75cwJS3Al94AddlpHANxARzGBpTBPaPmVzVamVTwY8od9++E8Ox8v9VLptaNhVJ4uCd7uNOxAnXlyAnFxZoCcbp3VA3Uq97IxgdB04t89/1O/w1cDnyilFU=";
+
+?>

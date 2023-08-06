@@ -30,6 +30,24 @@
         <br>
         <input class='send' name="submit" type='submit' value='Send'>
     </form>
+
+
     
+    <!-- ตรงนี้เราจะเพิ่มโค้ด JavaScript เพื่อ redirect หลังจาก submit แบบฟอร์ม -->
+    <script>
+        document.getElementById("myForm").addEventListener("submit", function() {
+            // หยุดการ submit แบบฟอร์ม
+            event.preventDefault();
+            // ทำการ redirect กลับไปที่หน้า index.html
+            window.location.href = "index.html";
+        });
+    </script>
+
+
+
+
+
+
+
 </body>
 </html>
