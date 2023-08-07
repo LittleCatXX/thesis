@@ -1,9 +1,9 @@
 <?php return array(
     'root' => array(
         'name' => '__root__',
-        'pretty_version' => '1.0.0+no-version-set',
-        'version' => '1.0.0.0',
-        'reference' => NULL,
+        'pretty_version' => 'dev-main',
+        'version' => 'dev-main',
+        'reference' => 'e8f7dd66ee6b8b542a20e8c4befbfdbe8f5df1bd',
         'type' => 'library',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         '__root__' => array(
-            'pretty_version' => '1.0.0+no-version-set',
-            'version' => '1.0.0.0',
-            'reference' => NULL,
+            'pretty_version' => 'dev-main',
+            'version' => 'dev-main',
+            'reference' => 'e8f7dd66ee6b8b542a20e8c4befbfdbe8f5df1bd',
             'type' => 'library',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
@@ -47,9 +47,9 @@
             'dev_requirement' => false,
         ),
         'linecorp/line-bot-sdk' => array(
-            'pretty_version' => '8.1.0',
-            'version' => '8.1.0.0',
-            'reference' => '7759d7a9429f84bdf0477b32e2f1d4e3ee38332c',
+            'pretty_version' => '9.0.0',
+            'version' => '9.0.0.0',
+            'reference' => 'ed49f5d0a716c619241496e06909aed77966745f',
             'type' => 'library',
             'install_path' => __DIR__ . '/../linecorp/line-bot-sdk',
             'aliases' => array(),

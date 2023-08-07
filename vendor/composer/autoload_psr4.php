@@ -6,7 +6,7 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-message/src', $vendorDir . '/psr/http-factory/src'),
+    'Psr\\Http\\Message\\' => array($vendorDir . '/psr/http-factory/src', $vendorDir . '/psr/http-message/src'),
     'Psr\\Http\\Client\\' => array($vendorDir . '/psr/http-client/src'),
     'LINE\\Webhook\\' => array($vendorDir . '/linecorp/line-bot-sdk/src/webhook/lib'),
     'LINE\\Parser\\' => array($vendorDir . '/linecorp/line-bot-sdk/src/parser/lib'),

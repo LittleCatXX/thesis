@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "91f33d04e55112dc4703ac5a569e2507",
+    "content-hash": "9b165000228621cb202608ff20c71f02",
     "packages": [
         {
             "name": "guzzlehttp/guzzle",
@@ -333,16 +333,16 @@
         },
         {
             "name": "linecorp/line-bot-sdk",
-            "version": "8.1.0",
+            "version": "9.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/line/line-bot-sdk-php.git",
-                "reference": "7759d7a9429f84bdf0477b32e2f1d4e3ee38332c"
+                "reference": "ed49f5d0a716c619241496e06909aed77966745f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/7759d7a9429f84bdf0477b32e2f1d4e3ee38332c",
-                "reference": "7759d7a9429f84bdf0477b32e2f1d4e3ee38332c",
+                "url": "https://api.github.com/repos/line/line-bot-sdk-php/zipball/ed49f5d0a716c619241496e06909aed77966745f",
+                "reference": "ed49f5d0a716c619241496e06909aed77966745f",
                 "shasum": ""
             },
             "require": {
@@ -356,7 +356,7 @@
                 "orchestra/testbench": "*",
                 "phpmd/phpmd": "2.13.0",
                 "phpstan/phpstan": "^1.10",
-                "phpunit/phpunit": "^9.6",
+                "phpunit/phpunit": "^10.2",
                 "squizlabs/php_codesniffer": "3.7.2"
             },
             "type": "library",
@@ -424,9 +424,9 @@
             ],
             "support": {
                 "issues": "https://github.com/line/line-bot-sdk-php/issues",
-                "source": "https://github.com/line/line-bot-sdk-php/tree/8.1.0"
+                "source": "https://github.com/line/line-bot-sdk-php/tree/9.0.0"
             },
-            "time": "2023-07-07T06:52:33+00:00"
+            "time": "2023-08-01T03:49:03+00:00"
         },
         {
             "name": "psr/http-client",

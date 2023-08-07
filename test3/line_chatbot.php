@@ -1,7 +1,5 @@
 <?php
-
 // Include ไฟล์ที่มีฟังก์ชัน replyToUser() และฟังก์ชันเชื่อมต่อฐานข้อมูล
-
 include 'db_connection.php';
 include 'token.php';
 
@@ -27,11 +25,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 $sql = "INSERT INTO usersline (user_id, message_content) VALUES ('$user_id', '$message')";
                 $conn->query($sql);
 
-                // ทำการตอบกลับอัตโนมัติ
-                $reply_message = "ทดสอบส่งข้อความกลับถึงผู้ใช้ " . $message;
+                // ทำการคิวรีค่า $user_id ที่เก็บในตาราง usersline
+                $sql_query = "SELECT user_id FROM usersline";
+                $result = $conn->query($sql_query);
 
-                // ส่งข้อความกลับไปยังผู้ใช้งานผ่าน LINE Messaging API
-                replyToUser($accessToken, $user_id, $reply_message);
+                if ($result->num_rows > 0) {
+                    // อ่านข้อมูลและเก็บค่า $user_id ล่าสุดที่พบ
+                    while ($row = $result->fetch_assoc()) {
+                        $user_id = $row["user_id"];
+                        // ในที่นี้เราจะทำการตอบกลับทุกครั้งที่มีการค้นหาค่า $user_id
+                        $reply_message = "ทดสอบส่งข้อความกลับถึงผู้ใช้ " . $message;
+
+                        // ส่งข้อความกลับไปยังผู้ใช้งานผ่าน LINE Messaging API
+                        replyToUser($accessToken, $user_id, $reply_message);
+                    }
+                } else {
+                    echo "ไม่พบข้อมูลในตาราง usersline";
+                }
             }
         }
     }
@@ -60,7 +70,7 @@ function replyToUser($access_token, $user_id, $reply_message) {
     );
 
     // ใช้ cURL เพื่อส่งข้อมูลไปยัง LINE Messaging API
-    $ch = curl_init('https://api.line.me/v2/bot/message/push');
+    $ch = curl_init('https://api.line.me/v2/bot/message/reply');
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
     curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
