@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>เพิ่มข้อมูลนักเรียน</title>
+</head>
+<body>
+<h1>เพิ่มข้อมูลนักเรียน</h1>
+<form action="store_addstu.php" method="post">
+    <label for="firstName">ชื่อ:</label>
+    <input type="text" id="firstName" name="firstName" required><br><br>
+
+    <label for="lastName">นามสกุล:</label>
+    <input type="text" id="lastName" name="lastName" required><br><br>
+
+    <label for="studentID">รหัสนักเรียน:</label>
+    <input type="text" id="studentID" name="studentID" required><br><br>
+
+    <input type="submit" value="เพิ่มข้อมูล">
+</form>
+</body>
+</html>

@@ -5,9 +5,11 @@
   
     <div class="container">
     
-    <br> <br> <br>  การทดสอบ  <br> 
-      <a class="navbar-brand text-light" href="./scanner.html"> ทดสอบ 1 ทดสอบสแกนเนอร์</a><br> สถานะ -ยังไม่ได้ทดสอบ สำหรับการใช้แบบ HTML / JS <br>
+    <br> <br> <br>  ใช้งานได้จริง <br> 
+      <a class="navbar-brand text-light" href="./scanner.html"> สแกนเนอร์ โดยใช้บัตรนิสิต หรือ บาร์โค้ด 8 หลัก </a><br>  <br>
 
+      <br> <br> <br>  การทดสอบ  <br> 
+      <a class="navbar-brand text-light" href="./addstu.html"> ทดสอบระบบ 1 Design for add del fix maintence  </a>   <br> แอดนักเรียนเข้าสู่ DB <br><br> <br> <br> 
       <a class="navbar-brand text-light" href="./test./test2.php"> ทดสอบระบบ 2 เชื่อมต่อกับ Line API </a>   <br> ของเฟิส ทดสอบผ่านแล้ว สามารถ ส่งข้อความ แบบ PUSH ได้ แต่ไม่สามารถ Reply ได้ <br>
 
       <a class="navbar-brand text-light" href="./test./x.js"> ทดสอบระบบ 3 </a>    <br> 
