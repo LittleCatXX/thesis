@@ -6,10 +6,15 @@
     <div class="container">
     
     <br> <br> <br>  ใช้งานได้จริง <br> 
-      <a class="navbar-brand text-light" href="./scanner.html"> สแกนเนอร์ โดยใช้บัตรนิสิต หรือ บาร์โค้ด 8 หลัก </a><br>  <br>
+      <a class="navbar-brand text-light" href="./scanner.html"> สแกนเนอร์ โดยใช้บัตรนิสิต หรือ บาร์โค้ด 8 หลัก แต่เพื่อ เก็บข้อมูลเข้า ตาราง </a><br>  <br>
+      <a class="navbar-brand text-light" href="./addstu.html"> เพิ่มนักเรียนเข้าระบบ  </a>   <br>  <br><br> <br> <br> 
+
+
+
+
+
 
       <br> <br> <br>  การทดสอบ  <br> 
-      <a class="navbar-brand text-light" href="./addstu.html"> ทดสอบระบบ 1 Design for add del fix maintence  </a>   <br> แอดนักเรียนเข้าสู่ DB <br><br> <br> <br> 
       <a class="navbar-brand text-light" href="./test./test2.php"> ทดสอบระบบ 2 เชื่อมต่อกับ Line API </a>   <br> ของเฟิส ทดสอบผ่านแล้ว สามารถ ส่งข้อความ แบบ PUSH ได้ แต่ไม่สามารถ Reply ได้ <br>
 
       <a class="navbar-brand text-light" href="./test./x.js"> ทดสอบระบบ 3 </a>    <br> 

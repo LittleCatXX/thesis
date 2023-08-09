@@ -1,35 +1,54 @@
 <?php
-include 'db_connection.php';
+include 'db_connection.php'; // เรียกใช้ไฟล์เชื่อมต่อฐานข้อมูล
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // ตรวจสอบว่ามีการส่งข้อมูลมาจากแบบฟอร์มหรือไม่
-    if (isset($_POST["scannerInput"]) && is_numeric($_POST["scannerInput"])) {
-        // ตรวจสอบความยาวของค่าที่เข้ามา
-        $scannedValue = $_POST["scannerInput"];
-        $valueLength = strlen($scannedValue);
+if ($_SERVER["REQUEST_METHOD"] == "POST") { // ตรวจสอบว่ามีการส่งข้อมูลมาจากแบบฟอร์มหรือไม่
+    if (isset($_POST["scannerInput"]) && is_numeric($_POST["scannerInput"])) { // ตรวจสอบว่ามีข้อมูลและเป็นตัวเลขหรือไม่
+        $scannedValue = $_POST["scannerInput"]; // รับค่าที่ส่งมาจากฟอร์ม
+        $valueLength = strlen($scannedValue); // ความยาวของค่าที่ส่งมา
 
-        // ตรวจสอบว่าค่ามีความยาว 8 หรือ 14 หลัก
-        if ($valueLength === 8 || $valueLength === 14) {
-            // ถ้าค่ามี 14 หลักให้ตัดค่าตามตำแหน่งที่ต้องการ (ตั้งแต่ตำแหน่งที่ 5 ถึง 8)
-            $desiredValue = ($valueLength === 14) ? substr($scannedValue, 5, 8) : $scannedValue;
+        if ($valueLength === 8 || $valueLength === 14) { // ตรวจสอบความยาวของค่า
 
-            // เชื่อมต่อฐานข้อมูล
+            $desiredValue = ($valueLength === 14) ? substr($scannedValue, 5, 8) : $scannedValue; // ตัดค่าตามตำแหน่งที่ต้องการ
+
+
             $conn = createDBConnection();
+    $checkDuplicateSql = "SELECT * FROM scanneddata WHERE valueofscan = '$desiredValue'";
+    $result = $conn->query($checkDuplicateSql);
 
-            // เตรียมคำสั่ง SQL เพื่อเพิ่มข้อมูลลงในตาราง
-            $sql = "INSERT INTO scanned_data (value) VALUES ('$desiredValue')";
+    if ($result->num_rows > 0) {
+        // ถ้ามีข้อมูลที่ซ้ำกันในฐานข้อมูลแล้ว
+        echo "ข้อมูลซ้ำกัน ไม่สามารถลงทะเบียนซ้ำได้";
+        $conn->close();
 
-            // ดำเนินการเพิ่มข้อมูล
-            if ($conn->query($sql) === TRUE) {
-                echo "Data added successfully!";
+        header("Location: scanner.html");
+            exit();
+
+    } else {
+        // ถ้าไม่มีข้อมูลที่ซ้ำกัน
+        $insertSql = "INSERT INTO scanneddata (valueofscan) VALUES ('$desiredValue')";
+        
+        if ($conn->query($insertSql) === TRUE) {
+            echo "เพิ่มข้อมูลเรียบร้อยแล้ว!";
+        } else {
+            echo "ข้อผิดพลาด: " . $insertSql . "<br>" . $conn->error;
+        }
+
+        $conn->close();
+
+        // ... (โค้ดที่เหมือนเดิม)
+    }
+
+            $conn = createDBConnection(); // เชื่อมต่อฐานข้อมูล
+
+            $sql = "INSERT INTO scanneddata (valueofscan) VALUES ('$desiredValue')"; // เตรียมคำสั่ง SQL เพื่อเพิ่มข้อมูล
+
+            if ($conn->query($sql) === TRUE) { // ดำเนินการเพิ่มข้อมูล
+                echo "เพิ่มข้อมูลเรียบร้อยแล้ว!";
             } else {
-                echo "Error: " . $sql . "<br>" . $conn->error;
+                echo "ข้อผิดพลาด: " . $sql . "<br>" . $conn->error;
             }
 
-            // ปิดการเชื่อมต่อฐานข้อมูล
-            $conn->close();
-
-            // เรียกใช้ฟังก์ชันอื่น
+            $conn->close(); // ปิดการเชื่อมต่อฐานข้อมูล
 
             // หน่วงเวลา 2 วินาที
             sleep(2);
@@ -38,13 +57,15 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             header("Location: scanner.html");
             exit();
         } else {
-            // แสดงข้อความและกลับหน้าเดิมหลังจาก 5 วินาที
-            echo "Input must be either 8 or 14 digits long. Please enter a numeric value.";
+            // แสดงข้อความและกลับหน้าเดิมหลังจาก 1 วินาที
+            echo "ค่าที่ป้อนจะต้องมีความยาว 8 หรือ 14 หลัก โปรดป้อนค่าที่เป็นตัวเลข";
             echo "<script>setTimeout(function(){ window.location.href = 'scanner.html'; }, 1000);</script>";
         }
     } else {
-        // แสดงข้อความและกลับหน้าเดิมหลังจาก 5 วินาที
-        echo "Invalid input. Please enter a numeric valueor change lan in keyboad. โปรดใส่เป็นตัวเลข หรือ เปลี่ยนภาษาแป้นพิม";
+        // แสดงข้อความและกลับหน้าเดิมหลังจาก 1 วินาที
+        echo "ค่าที่ป้อนไม่ถูกต้อง โปรดป้อนเป็นตัวเลข หรือเปลี่ยนเป็นภาษาแป้นพิมของคุณ";
         echo "<script>setTimeout(function(){ window.location.href = 'scanner.html'; }, 1000);</script>";
     }
 }
+include 'store_cleanup_data.php';
+?>

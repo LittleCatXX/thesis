@@ -11,7 +11,7 @@ $conn = createDBConnection();
 
 // เตรียมคำสั่ง SQL สำหรับเพิ่มข้อมูล
 $sql = "INSERT INTO students (firstName, lastName, studentID) VALUES ('$firstName', '$lastName', '$studentID')";
-
+// $sql = "INSERT INTO checklistdata (studentID) VALUES ('$studentID')"; 
 if ($conn->query($sql) === TRUE) {
     echo "เพิ่มข้อมูลนักเรียนเรียบร้อยแล้ว";
 } else {
