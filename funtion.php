@@ -46,7 +46,7 @@ function insertStudentData($conn, $firstName, $lastName, $studentID) {
     // เพิ่มข้อมูลนักเรียน 
     $insertQuery = "INSERT INTO students (firstName, lastName, studentID) VALUES ('$firstName', '$lastName', '$studentID')";
     if ($conn->query($insertQuery) === TRUE) {
-        
+
         return "เพิ่มข้อมูลนักเรียนเรียบร้อยแล้ว";
         
     } else {
