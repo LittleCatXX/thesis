@@ -6,8 +6,8 @@
     <div class="container">
     
     <br> <br> <br>  ใช้งานได้จริง <br> 
-      <a class="navbar-brand text-light" href="./scanner.html"> สแกนเนอร์ โดยใช้บัตรนิสิต หรือ บาร์โค้ด 8 หลัก แต่เพื่อ เก็บข้อมูลเข้า ตาราง </a><br>  <br>
-      <a class="navbar-brand text-light" href="./addstu.html"> เพิ่มนักเรียนเข้าระบบ  </a>   <br>  <br><br> <br> <br> 
+      <a class="navbar-brand text-light" href="./scanner.html"> เช็คชื่อ</a><br>  <br>
+      <a class="navbar-brand text-light" href="./addstu.html"> ลงทะเบียนนักเรียน  </a>   <br>  <br><br> <br> <br> 
 
 
 

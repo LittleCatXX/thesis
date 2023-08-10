@@ -89,3 +89,36 @@ BEGIN
 END;
 //
 DELIMITER ;
+
+
+DELIMITER //
+CREATE TRIGGER after_update_students
+AFTER UPDATE ON students FOR EACH ROW
+BEGIN
+    -- อัพเดตข้อมูลในตาราง checklistdata ที่มี studentID ตรงกับข้อมูลที่อัพเดตใน students
+    UPDATE checklistdata
+    SET studentID = NEW.studentID
+    WHERE studentID = OLD.studentID;
+END;
+//
+DELIMITER ;
+
+DELIMITER //
+CREATE TRIGGER after_delete_students
+AFTER DELETE ON students FOR EACH ROW
+BEGIN
+    -- ลบข้อมูลในตาราง checklistdata ที่มี studentID ตรงกับข้อมูลที่ถูกลบใน students
+    DELETE FROM checklistdata
+    WHERE studentID = OLD.studentID;
+END;
+//
+DELIMITER ;
+
+
+
+CREATE TRIGGER `after_insert_students` AFTER INSERT ON `students`
+ FOR EACH ROW BEGIN
+    -- เพิ่มข้อมูลใหม่ลงในตาราง checklistdata โดยให้ค่า value เป็น NULL
+    INSERT INTO checklistdata (studentID)
+    VALUES (NEW.studentID);
+END
