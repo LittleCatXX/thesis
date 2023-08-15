@@ -10,16 +10,29 @@ function extractDesiredValue($scannedValue, $valueLength) {
 
 // ฟังก์ชั่นเรียกใช้งานเก็บข้อมูลลงตาราง Checklist ของ scanner
 function insertDataIntoChecklist($conn, $escapedValue) {
-    
     $insertDataSql = "INSERT IGNORE INTO checklistdata (studentID) VALUES ('$escapedValue')";
 
     if ($conn->query($insertDataSql) === TRUE) {
+        $linkSelectQuery = "SELECT user_id FROM linelink WHERE studentID = '$escapedValue'";
+        $linkResult = $conn->query($linkSelectQuery);
 
-        header("Location: scanner.html");
-        return "บันทึกข้อมูลลงในตาราง checklistdata สำเร็จ";
+        if ($linkResult) {
+            $linkRow = $linkResult->fetch_assoc(); // ดึงข้อมูล user_id ออกมา
+            $user_id = $linkRow['user_id'];
 
-        // เมื่อบันทึกเสร็จแล้วให้ทำการ ส่ง messeg กลับไปที่ user
+            // เตรียมข้อมูลสำหรับส่งไปยัง Line Messaging API
+            $message = "Hello, $firstname $lastname! Your ID is $id. เช็คชื่อแล้ว ";
+            
+            // เรียกใช้ฟังก์ชันส่งข้อความผ่าน Line Messaging API
+            sendLineMessage($message, $user_id);
 
+            // ทำการเปลี่ยนหน้าไปยัง scanner.html
+            header("Location: scanner.html");
+            exit(); // ออกจากการทำงานของฟังก์ชัน
+
+        } else {
+            return "เกิดข้อผิดพลาดในการดึงข้อมูล: " . $conn->error;
+        }
     } else {
         return "เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . $conn->error;
     }
@@ -50,25 +63,14 @@ function insertStudentData($conn, $firstName, $lastName, $studentID) {
     // เพิ่มข้อมูลนักเรียน 
     $insertQuery = "INSERT INTO students (firstName, lastName, studentID) VALUES ('$firstName', '$lastName', '$studentID')";
     if ($conn->query($insertQuery) === TRUE) {
-       
-
-        $linkSelectQuery = "SELECT user_id FROM linelink WHERE studentID = '$studentID'";
-        $linkResult = $conn->query($linkSelectQuery);
-
-        if ($linkResult) {
-        $linkRow = $linkResult->fetch_assoc(); // ดึงข้อมูล user_id ออกมา
-        $user_id = $linkRow['user_id'];
-
-        // เตรียมข้อมูลสำหรับส่งไปยัง Line Messaging API
-        $message = "Hello, $firstname $lastname! Your ID is $id. เช็คชื่อแล้ว ";
-        sendLineMessage($message, $user_id);
+   
         return "เพิ่มข้อมูลนักเรียนเรียบร้อยแล้ว";
         
     } else {
         return "Error inserting data: " . $conn->error;
     }
     }
-}
+
 
 function sendLineMessage($message, $user_id) {
     // กำหนด Channel Access Token ที่คุณได้รับจาก Line Developer
