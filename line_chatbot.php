@@ -50,24 +50,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $conn->close();
 }
 
-// ฟังก์ชันสำหรับส่งข้อความผ่าน LINE Messaging API
-function replyToUser($access_token, $user_id, $reply_message) {
-    // ตั้งค่า HTTP headers สำหรับส่งข้อมูลไปยัง LINE Messaging API
-    $headers = array(
-        'Authorization: Bearer ' . $access_token,
-        'Content-Type: application/json'
-    );
 
-    // ข้อมูลที่ต้องการส่งไปยัง LINE Messaging API
-    $data = array(
-        'to' => $user_id, // ค่า USER_ID ของผู้ใช้ Line Chat ที่คุณต้องการส่งข้อความถึง
-        'messages' => array(
-            array(
-                'type' => 'text',
-                'text' => $reply_message
-            )
-        )
-    );
 
     // ใช้ cURL เพื่อส่งข้อมูลไปยัง LINE Messaging API
     $ch = curl_init('https://api.line.me/v2/bot/message/reply');

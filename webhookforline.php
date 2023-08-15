@@ -1,4 +1,5 @@
 <?php
+///ไม่น่าได้ใช้โค้ดนี้ 
 require __DIR__ . '/vendor/autoload.php';
 
 
@@ -32,6 +33,11 @@ foreach ($events as $event) {
         $bot->replyText($event->getReplyToken(), $replyText);
     }
 }
+
+
+
+
+
 
 
 

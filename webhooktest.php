@@ -10,10 +10,17 @@ $content = file_get_contents('php://input');
 $events = json_decode($content, true);
 if (!empty($events['events'])) {
     foreach ($events['events'] as $event) {
-        if ($event['type'] == 'message' && $event['message']['type'] == 'text') {
+        if ($event['type'] === 'message' && $event['message']['type'] === 'text') {
+            $user_id = $event['source']['userId'];
+            $message = $event['message']['text'];
+
+            // เรียกใช้ฟังก์ชั่นเพื่อตรวจสอบและเพิ่มข้อมูลเข้าตาราง linelink
+            checkAndInsertLink($user_id, $message);
+
             // ข้อความที่ส่งกลับ มาจาก ข้อความที่ส่งมา
-            // ร่วมกับ USER ID ของไลน์ที่เราต้องการใช้ในการตอบกลับ
             
+            // ร่วมกับ USER ID ของไลน์ที่เราต้องการใช้ในการตอบกลับ
+
             $messages = array(
                 'type' => 'text',
                 'text' => 'Reply message : '.$event['message']['text']."\nUser ID : ".$event['source']['userId'],
@@ -22,8 +29,7 @@ if (!empty($events['events'])) {
                 'replyToken' => $event['replyToken'],
                 'messages' => array($messages),
             ));
-
-
+ 
 
 
 
@@ -58,7 +64,7 @@ if (!empty($events['events'])) {
 
 
         }
-
+        //เก็บข้อมูลลง DB
         $conn = createDBConnection();
         if (!empty($events['events'])) {
             foreach ($events['events'] as $event) {
@@ -71,12 +77,48 @@ if (!empty($events['events'])) {
                     // ทำการเก็บ User ID และข้อความที่ผู้ใช้งานส่งมาลงในฐานข้อมูล
                     $sql = "INSERT INTO usersline (user_id, message_content) VALUES ('$user_id', '$message')";
                     $conn->query($sql);
+
+                    $push_message = array(
+                        'to' => $user_id , // ใส่ User ID ของผู้ใช้ที่คุณต้องการส่ง
+                        'messages' => array(
+                            array(
+                                'type' => 'text',
+                                'text' => 'บันทึก'
+                            )
+                        )
+
+                    );
+                    $url = 'https://api.line.me/v2/bot/message/push';
+                    $headers = array('Content-Type: application/json', 'Authorization: Bearer '.$access_token);
+                    $ch = curl_init($url);
+                    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+                    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+                    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($push_message));
+                    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
+                    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
+                    $result = curl_exec($ch);
+                    curl_close($ch);
+                    echo $result;
+                    
+
+
+
+
                 }
             }
         }
         $conn->close();   
 
-   
+
+
+
+
+      
+
+
+
+
+        
 
 
 

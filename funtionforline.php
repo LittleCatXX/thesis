@@ -1,4 +1,8 @@
 <?php
+///ไม่น่าได้ใช้โค้ดนี้ 
+
+// Usage $channelAccessToken = '<your-channel-access-token>'; $messagingApiClient = createMessagingApiClient($channelAccessToken);
+// Create the bot client instance
 
 
 use \GuzzleHttp\Client;
@@ -70,4 +74,22 @@ function queryUserIDsFromUsersLine($conn) {
   
   return $user_ids;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ?>

@@ -17,6 +17,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo insertDataIntoChecklist($conn, $desiredValue);
             
             $conn->close(); // ปิดการเชื่อมต่อฐานข้อมูล
+
+            
+
+
+
+
         } else {
             echo "Input must be either 8 or 14 digits long. Please enter a numeric value.";
             echo "<script>setTimeout(function(){ window.location.href = 'scanner.html'; }, 1000);</script>";
@@ -26,4 +32,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo "<script>setTimeout(function(){ window.location.href = 'scanner.html'; }, 1000);</script>";
     }
 }
+
 ?>
