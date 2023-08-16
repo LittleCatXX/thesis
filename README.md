@@ -6,7 +6,15 @@ road maps
 -> need to update line API
 
 
---------------------
+--8/17/2023
+-improve system with replay messeges
+-add bootstrap
+-cleaning ignore file and funtion
+
+
+
+
+------------------
     add API
 -can save UID to DB
 -can save text to DB
@@ -23,3 +31,5 @@ can save messeg to DB
 improve DB
 -use DB Normaliztion
 add bidge table -> linkline
+
+-----------------
