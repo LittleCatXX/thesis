@@ -8,7 +8,8 @@ function extractDesiredValue($scannedValue, $valueLength) {
 
 
 
-// ฟังก์ชั่นเรียกใช้งานเก็บข้อมูลลงตาราง Checklist ของ scanner
+// ฟังก์ชั่นเรียกใช้งานเก็บข้อมูลลงตาราง Checklist ของ scanner       
+// v1เพิมตาราง v2ส่งกลับไลน์ได้ v3ส่งคืนเวลา v4 ส่งคืนเวลา ณ เวลาล่าสุดได้
 function insertDataIntoChecklist($conn, $escapedValue) {
     $insertDataSql = "INSERT IGNORE INTO checklistdata (studentID) VALUES ('$escapedValue')";
 
@@ -20,35 +21,34 @@ function insertDataIntoChecklist($conn, $escapedValue) {
             $linkRow = $linkResult->fetch_assoc(); // ดึงข้อมูล user_id ออกมา
             $user_id = $linkRow['user_id'];
  
-            $replyUserTimeATQuery = "SELECT created_at FROM checklistdata WHERE studentID = '$escapedValue'";
+            $replyUserTimeATQuery = "SELECT MAX(created_at) AS latest_created_at FROM checklistdata WHERE studentID = '$escapedValue'";
             $replyUserTimeATResult = $conn->query($replyUserTimeATQuery);
             
             if ($replyUserTimeATResult && $replyUserTimeATResult->num_rows > 0) {
                 $replyUserTimeATRow = $replyUserTimeATResult->fetch_assoc();
-                $replyUserTimeAT = $replyUserTimeATRow['created_at'];
+                $replyUserTimeAT = $replyUserTimeATRow['latest_created_at'];
             
                 // เตรียมข้อมูลสำหรับส่งไปยัง Line Messaging API
                 $message = "Your ID is $escapedValue. เช็คชื่อแล้ว วันที่ $replyUserTimeAT";
 
+                // เรียกใช้ฟังก์ชันส่งข้อความผ่าน Line Messaging API
+                sendLineMessage($message, $user_id);
 
-            // เตรียมข้อมูลสำหรับส่งไปยัง Line Messaging API
-            $message = " Your ID is $escapedValue. เช็คชื่อแล้ว $replyUserTimeAT ";
-            
-            // เรียกใช้ฟังก์ชันส่งข้อความผ่าน Line Messaging API
-            sendLineMessage($message, $user_id);
+                // ทำการเปลี่ยนหน้าไปยัง scanner.html
+                header("Location: scanner.html");
+                exit(); // ออกจากการทำงานของฟังก์ชัน
 
-            // ทำการเปลี่ยนหน้าไปยัง scanner.html
-            header("Location: scanner.html");
-            exit(); // ออกจากการทำงานของฟังก์ชัน
-
+            } else {
+                return "เกิดข้อผิดพลาดในการดึงข้อมูล: " . $conn->error;
+            }
         } else {
             return "เกิดข้อผิดพลาดในการดึงข้อมูล: " . $conn->error;
         }
     } else {
         return "เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . $conn->error;
     }
-  }
 }
+
 
 
 // ฟังก์ชั่นเรียกใช้งานเก็บข้อมูลลงตาราง students ของ addstu
