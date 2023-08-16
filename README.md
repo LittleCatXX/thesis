@@ -1,9 +1,19 @@
 # thesis
-update 
+update
 - linked :  HOST-> Line API -> chatbot
-road maps
--> need to update page / database
--> need to update line API
+
+***road maps 07/2023***
+-> need to update page / database finish 100%
+-> need to update line API        finish 100%
+***road maps 08/2023***
+-> have user login
+    -> add status
+-> design web page
+-> know where checkin
+    -> lab
+    -> room
+    -> library
+    -> toliet ? 
 
 
 --8/17/2023

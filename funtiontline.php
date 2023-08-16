@@ -1,19 +1,6 @@
 <?php
 
-//// URL ของบริการ Replies สำหรับการตอบกลับด้วยข้อความอัตโนมัติ
-/// ล้มเหลว
-function sendMessageWithCurl($url, $headers, $post) {
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $post);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, $headers);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, 1);
-    $result = curl_exec($ch);
-    curl_close($ch);
-    return $result;
-}
-
+/// query 
 function queryUserIDsFromUsersLine($conn) {
     $sql_query = "SELECT user_id FROM usersline";
     $result = $conn->query($sql_query);
@@ -30,7 +17,7 @@ function queryUserIDsFromUsersLine($conn) {
   }
 
 
-  
+  ////ตารางเก็บข้อมูล linelink ไว้เก็บข้อมูลของ webhook 
 function checkAndInsertLink($user_id, $message) {
     $conn = createDBConnection();
     
