@@ -47,21 +47,7 @@ function checkAndInsertLink($user_id, $message) {
     $conn->close();
 }
 
-//ไม่สามารถใช้ได้
-function createReplyMessage($event) {
-    $messages = array(
-        'type' => 'text',
-        'text' => 'Reply message : ' . $event['message']['text'] . "\nUser ID : " . $event['source']['userId'],
-    );
-    $post = json_encode(array(
-        'replyToken' => $event['replyToken'],
-        'messages' => array($messages),
-    ));
 
-    return $post;
-
-
-}
 
 
 

@@ -19,9 +19,20 @@ function insertDataIntoChecklist($conn, $escapedValue) {
         if ($linkResult) {
             $linkRow = $linkResult->fetch_assoc(); // ดึงข้อมูล user_id ออกมา
             $user_id = $linkRow['user_id'];
+ 
+            $replyUserTimeATQuery = "SELECT created_at FROM checklistdata WHERE studentID = '$escapedValue'";
+            $replyUserTimeATResult = $conn->query($replyUserTimeATQuery);
+            
+            if ($replyUserTimeATResult && $replyUserTimeATResult->num_rows > 0) {
+                $replyUserTimeATRow = $replyUserTimeATResult->fetch_assoc();
+                $replyUserTimeAT = $replyUserTimeATRow['created_at'];
+            
+                // เตรียมข้อมูลสำหรับส่งไปยัง Line Messaging API
+                $message = "Your ID is $escapedValue. เช็คชื่อแล้ว วันที่ $replyUserTimeAT";
+
 
             // เตรียมข้อมูลสำหรับส่งไปยัง Line Messaging API
-            $message = "Hello, $firstname $lastname! Your ID is $id. เช็คชื่อแล้ว ";
+            $message = " Your ID is $escapedValue. เช็คชื่อแล้ว $replyUserTimeAT ";
             
             // เรียกใช้ฟังก์ชันส่งข้อความผ่าน Line Messaging API
             sendLineMessage($message, $user_id);
@@ -36,9 +47,8 @@ function insertDataIntoChecklist($conn, $escapedValue) {
     } else {
         return "เกิดข้อผิดพลาดในการบันทึกข้อมูล: " . $conn->error;
     }
+  }
 }
-
-
 
 
 // ฟังก์ชั่นเรียกใช้งานเก็บข้อมูลลงตาราง students ของ addstu
@@ -72,6 +82,7 @@ function insertStudentData($conn, $firstName, $lastName, $studentID) {
     }
 
 
+//// เมื่อสแกนเสร็จ ส่งข้อความกลับไปที่ studentID ... user_id ที่เก็บข้อมูล
 function sendLineMessage($message, $user_id) {
     // กำหนด Channel Access Token ที่คุณได้รับจาก Line Developer
     $channelAccessToken = 'P52UXHhWlbVPXb0ikNPk8135dzvwGrZ92/4cxDrwDlm/iM+VkQ2K1neE6r1ur1dEddlpHANxARzGBpTBPaPmVzVamVTwY8od9++E8Ox8v9VAqb1hg96ttFho4VP67FE2g/dBhkNRIysMAR1MV7VRswdB04t89/1O/w1cDnyilFU=';
@@ -105,7 +116,7 @@ function sendLineMessage($message, $user_id) {
     // ตรวจสอบค่าที่ได้จากการใช้งาน cURL
     // ถ้าส่งข้อความสำเร็จ ค่าที่ควรได้คือ string(0) ""
     var_dump($result);
-}
+   }
 
 
 
