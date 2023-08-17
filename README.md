@@ -1,5 +1,5 @@
 # thesis
-update
+use with PHP XAMMP MYSQL line API
 - linked :  HOST-> Line API -> chatbot
 
 ***road maps 07/2023***
