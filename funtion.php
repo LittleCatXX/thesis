@@ -129,6 +129,27 @@ function sendLineMessage($message, $user_id) {
 
 
 
+   
+   function updateStudentData($conn, $studentID, $newFirstName, $newLastName) {
+    // สร้างคำสั่ง SQL สำหรับการอัพเดตข้อมูล
+    $sql = "UPDATE students SET firstName='$newFirstName', lastName='$newLastName' WHERE studentID='$studentID'";
+
+    if ($conn->query($sql) === TRUE) {
+        echo "<script>setTimeout(function(){ window.location.href = 'addstu.html'; }, 3000);</script>";
+        return "อัพเดตข้อมูลนักเรียนเรียบร้อยแล้ว <br> กำลังกลับหน้าหลักเอง 5 วิ โปรดรอสักครู่";
+    } else {
+        return "เกิดข้อผิดพลาดในการอัพเดตข้อมูล: " . $conn->error;
+    }
+}
+
+
+
+
+
+
+
+
+
 
 
 

@@ -17,9 +17,8 @@
 
         <a class="nav-item nav-link active" href="index.html">Home <span class="sr-only"></span></a>
         <a class="nav-item nav-link" href="scanner.html">เช็คชื่อ</a>
-        <a class="nav-item nav-link" href="addstu.html">เพิ่มนักเรียนลงระบบ (current) </a>
-        <a class="nav-item nav-link" href="updatestu.html">แก้ไขนักเรียนในระบบ</a>
-        
+        <a class="nav-item nav-link" href="addstu.html">เพิ่มนักเรียนลงระบบ  </a>
+        <a class="nav-item nav-link" href="updatestu.html">แก้ไขนักเรียนในระบบ (current) </a>
         <a class="nav-item nav-link disabled" href="#"> login </a>
         <a class="nav-item nav-link disabled" href="#"> ทดสอบระบบ </a>
 
@@ -29,18 +28,23 @@
 
 </head>
 <body>
-<h1>เพิ่มข้อมูลนักเรียน</h1>
-<form action="store_addstu.php" method="post">
+<h1>แก้ไขนักเรียนในระบบ</h1>
+<form action="store_updatestu.php" method="post">
+
+    <label for="studentID">รหัสนักเรียน:</label>
+    <input type="text" id="studentID" name="studentID" required><br><br>
+
     <label for="firstName">ชื่อ:</label>
     <input type="text" id="firstName" name="firstName" required><br><br>
 
     <label for="lastName">นามสกุล:</label>
     <input type="text" id="lastName" name="lastName" required><br><br>
 
-    <label for="studentID">รหัสนักเรียน:</label>
-    <input type="text" id="studentID" name="studentID" required><br><br>
+   
 
-    <input type="submit" value="เพิ่มข้อมูล">
+    <input type="submit" value="แก้ไขข้อมูล">
+    <a href="index.html"><button type="button">ไม่แก้ไขข้อมูล</button>
+
 </form>
 
 <br> 
