@@ -1,5 +1,5 @@
 <?php
-include '.php';
+
 // เช็คค่า value รับค่ามาต้องเป็น int ยังเดียว และก็ ต้องมี ขนาด 8 ถ้ามากกว่า หรือ เท่ากับ 14 ให้เอาตำแหน่งที่ 5 กับ 8
 function extractDesiredValue($scannedValue, $valueLength) {
     return ($valueLength === 14) ? substr($scannedValue, 5, 8) : $scannedValue;
@@ -54,32 +54,41 @@ function insertDataIntoChecklist($conn, $escapedValue) {
 // ฟังก์ชั่นเรียกใช้งานเก็บข้อมูลลงตาราง students ของ addstu
 function insertStudentData($conn, $firstName, $lastName, $studentID) {
     // ตรวจสอบก่อนว่ามี studentID นี้ในฐานข้อมูลหรือไม่
-    $checkQuery = "SELECT COUNT(*) AS count FROM students WHERE studentID = '$studentID'";
-    $checkResult = $conn->query($checkQuery);
+    $checkQuery = "SELECT COUNT(*) AS count FROM students WHERE studentID = ?";
+    
+    $checkStatement = $conn->prepare($checkQuery);
+    $checkStatement->bind_param("s", $studentID);
+    $checkStatement->execute();
+    $checkResult = $checkStatement->get_result();
 
     if ($checkResult) {
         $rowCount = $checkResult->fetch_assoc()["count"];
         if ($rowCount > 0) {
-            echo "<script>setTimeout(function(){ window.location.href = 'addstu.html'; }, 1000);</script>";
-            return "ข้อมูลนักเรียนรหัสนี้มีอยู่ในระบบแล้ว";
+            echo "<script>setTimeout(function(){ window.location.href = 'addstu.html'; }, 5000);</script>";
             
+            return "ข้อมูลนักเรียนรหัสนี้มีอยู่ในระบบแล้ว กลับหน้าหลักเอง 5 วิ โปรดรอสักครู่";
+
         }
     } else {
         return "Error checking duplicate: " . $conn->error;
-        
     }
-    
 
     // เพิ่มข้อมูลนักเรียน 
-    $insertQuery = "INSERT INTO students (firstName, lastName, studentID) VALUES ('$firstName', '$lastName', '$studentID')";
-    if ($conn->query($insertQuery) === TRUE) {
-   
-        return "เพิ่มข้อมูลนักเรียนเรียบร้อยแล้ว";
-        
+    $insertQuery = "INSERT INTO students (firstName, lastName, studentID) VALUES (?, ?, ?)";
+    
+    $insertStatement = $conn->prepare($insertQuery);
+    $insertStatement->bind_param("sss", $firstName, $lastName, $studentID);
+    
+    if ($insertStatement->execute()) {
+        echo "<script>setTimeout(function(){ window.location.href = 'addstu.html'; }, 5000);</script>";
+       
+
+        return "เพิ่มข้อมูลนักเรียนเรียบร้อยแล้ว กลับหน้าหลักเอง 5 วิ โปรดรอสักครู่ ";
+
     } else {
-        return "Error inserting data: " . $conn->error;
+        return "Error inserting data: " . $insertStatement->error;
     }
-    }
+}
 
 
 //// เมื่อสแกนเสร็จ ส่งข้อความกลับไปที่ studentID ... user_id ที่เก็บข้อมูล
